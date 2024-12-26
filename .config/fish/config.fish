@@ -8,13 +8,12 @@ if status is-interactive
 
     # set up keychain so you don't have to enter passphrases all the time for ssh
     function fish_keychain -d "add ssh key to keychain"
+        set SSH_PRIVATE_KEYS ~/.ssh/id_rsa
         if test (uname) = Linux
-            keychain --agents ssh --quiet --eval $SSH_PRIVATE_KEYS \
-                | sed -E 's/^([^=]+)=(.*); export \1;/set -gx \1 \2/g' \
+            SHELL=fish keychain --agents ssh --quiet --eval $SSH_PRIVATE_KEYS \
                 | source
         end
     end
-    set -gx SSH_PRIVATE_KEYS ~/.ssh/id_rsa
 
     set -U fish_user_paths ~/.local/bin $fish_user_paths
     fish_keychain

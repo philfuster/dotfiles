@@ -1,7 +1,7 @@
 # This file contains fish universal variable definitions.
 # VERSION: 3.0
-SETUVAR --export SSH_AGENT_PID:385
-SETUVAR --export SSH_AUTH_SOCK:/tmp/ssh\x2dt1CqpvKbqsVi/agent\x2e384
+SETUVAR --export SSH_AGENT_PID:330
+SETUVAR --export SSH_AUTH_SOCK:/tmp/ssh\x2dhyA7XNgHIH9D/agent\x2e329
 SETUVAR __fish_initialized:3400
 SETUVAR _fisher_jorgebucaran_2F_fisher_files:\x7e/\x2econfig/fish/functions/fisher\x2efish\x1e\x7e/\x2econfig/fish/completions/fisher\x2efish
 SETUVAR _fisher_jorgebucaran_2F_nvm_2E_fish_files:\x7e/\x2econfig/fish/functions/_nvm_index_update\x2efish\x1e\x7e/\x2econfig/fish/functions/_nvm_list\x2efish\x1e\x7e/\x2econfig/fish/functions/_nvm_version_activate\x2efish\x1e\x7e/\x2econfig/fish/functions/_nvm_version_deactivate\x2efish\x1e\x7e/\x2econfig/fish/functions/nvm\x2efish\x1e\x7e/\x2econfig/fish/conf\x2ed/nvm\x2efish\x1e\x7e/\x2econfig/fish/completions/nvm\x2efish
@@ -47,3 +47,4 @@ SETUVAR fish_pager_color_selected_completion:f8f8f2
 SETUVAR fish_pager_color_selected_description:6272a4
 SETUVAR fish_pager_color_selected_prefix:8be9fd
 SETUVAR fish_user_paths:/home/paf/\x2elocal/bin\x1e/opt/nvim\x2dlinux64/bin
+SETUVAR nvm_default_version:v22\x2e12\x2e0

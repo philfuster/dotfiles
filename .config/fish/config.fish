@@ -17,8 +17,9 @@ if status is-interactive; and test (uname) = Linux
 
     # set user local bin paths
     set -U fish_user_paths ~/.local/bin $fish_user_paths
-    # have tmux auto status
-    set fish_tmux_autostart true
     # set up keychain for github ssh
     fish_keychain
+    # NOTE: Make sure starting tmux is the last thing that happens. tmux will inherit the 
+    # the environment of the shell at time of launch.
+    set fish_tmux_autostart true
 end

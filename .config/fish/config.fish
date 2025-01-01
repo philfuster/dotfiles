@@ -17,8 +17,6 @@ if status is-interactive; and test (uname) = Linux
 
     # set user local bin paths
     set -U fish_user_paths ~/.local/bin $fish_user_paths
-    # set vim fish keybindings
-    set -g fish_key_bindings fish_vi_key_bindings
     # have tmux auto status
     set fish_tmux_autostart true
     # set up keychain for github ssh

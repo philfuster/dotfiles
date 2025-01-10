@@ -19,7 +19,11 @@ if status is-interactive; and test (uname) = Linux
     set -U fish_user_paths ~/.local/bin $fish_user_paths
     # set up keychain for github ssh
     fish_keychain
-    # NOTE: Make sure starting tmux is the last thing that happens. tmux will inherit the 
-    # the environment of the shell at time of launch.
-    set fish_tmux_autostart true
 end
+
+# pnpm
+set -gx PNPM_HOME "/home/paf/.local/share/pnpm"
+if not string match -q -- $PNPM_HOME $PATH
+    set -gx PATH "$PNPM_HOME" $PATH
+end
+# pnpm end

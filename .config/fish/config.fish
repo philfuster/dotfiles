@@ -16,15 +16,6 @@ if status is-interactive; and test (uname) = Linux
     # set user local bin paths
     set -U fish_user_paths ~/.local/bin $fish_user_paths
 
-    # wait for /run/user/1000 (tmp directory for usr processes) before launching tmux so environment has all context needed
-    while test ! -d /run/user/1000/
-        sleep 1 &
-        wait
-    end
-    if [ (ps aux | grep tmux | grep -v grep | count) -le 0 ]
-        tmux
-    end
-
     # set up keychain for github ssh
     fish_keychain
 end

@@ -1,6 +1,4 @@
 if status is-interactive; and test (uname) = Linux
-    # Commands to run in interactive sessions on linux
-
     # set up alias for dealing with dotfile git repo
     function config --wraps /usr/bin/git --description 'alias config=/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
         /usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME $argv
@@ -23,7 +21,9 @@ if status is-interactive; and test (uname) = Linux
         sleep 1 &
         wait
     end
-    tmux
+    if [ (ps aux | grep tmux | grep -v grep | count) -le 0 ]
+        tmux
+    end
 
     # set up keychain for github ssh
     fish_keychain

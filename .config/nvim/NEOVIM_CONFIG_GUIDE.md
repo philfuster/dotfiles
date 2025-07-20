@@ -80,27 +80,42 @@ The following LazyVim extras are enabled (see `lazyvim.json`):
 
 ### Options (`lua/config/options.lua`)
 
-```lua
-vim.g.lazyvim_prettier_needs_config = true
-```
+Enhanced Neovim settings for better performance and user experience:
 
-- Ensures Prettier only runs when a config file is present
+**Key Improvements:**
+
+- **Performance**: Faster completion (200ms) and which-key popup (500ms)
+- **Navigation**: Keep cursor centered with scroll offset (8 lines)
+- **Search**: Smart case-sensitive searching
+- **Undo**: Persistent undo across sessions with 10,000 levels
+- **Splits**: Open new splits to the right and below
+- **Prettier Integration**: Only runs when config file is present
 
 ### Keymaps (`lua/config/keymaps.lua`)
 
-```lua
-vim.api.nvim_set_keymap("i", "jj", "<Esc>", {
-  noremap = true,
-  silent = true,
-})
-```
+Enhanced key mappings for improved workflow:
 
-- **`jj`** in insert mode → Quick escape to normal mode
+**Key Features:**
+
+- **Quick Escape**: Multiple escape sequences from insert mode
+- **Visual Mode Enhancements**: Keep selection while indenting, move text blocks
+- **Centered Navigation**: Page scrolling and search results stay centered
+- **Quick Actions**: Fast save, clear search highlighting
+- **Better Defaults**: Improved indenting and text movement
+
+*See the actual file for specific key bindings and implementation details.*
 
 ### Auto Commands (`lua/config/autocmds.lua`)
 
-- Currently uses LazyVim defaults
-- Ready for custom auto commands
+Intelligent automation for better user experience:
+
+**Features:**
+
+- **Visual Feedback**: Highlight yanked text for better copy/paste awareness
+- **Smart File Handling**: Auto-create parent directories when saving files
+- **Quick Navigation**: Press `q` to close help, quickfix, and other special buffers
+
+*Implementation details available in the configuration file.*
 
 ## 🔌 Custom Plugins
 
@@ -110,68 +125,79 @@ vim.api.nvim_set_keymap("i", "jj", "<Esc>", {
 
 Enhanced window navigation with smart terminal multiplexer integration.
 
-**Key Bindings:**
-
-- `<Alt-h>` - Move to left window
-- `<Alt-l>` - Move to right window
-- `<Alt-j>` - Move to window below
-- `<Alt-k>` - Move to window above
+**Purpose**: Seamless window navigation using Alt+hjkl, with intelligent detection of terminal multiplexers like tmux.
 
 #### nvim-spider (`nvim-spider.lua`)
 
 Smarter word motion that skips punctuation.
 
-**Enhanced Motions:**
-
-- `w` - Move to start of next word (smart)
-- `e` - Move to end of word (smart)
-- `b` - Move to start of previous word (smart)
+**Purpose**: Enhanced w/e/b motions that intelligently handle punctuation and programming constructs.
 
 ### Text Manipulation
 
 #### Rip Substitute (`rip-substitute.lua`)
 
-Fast, interactive search and replace.
+Fast, interactive search and replace with live preview.
 
-**Key Bindings:**
-
-- `g/` - Open rip substitute interface (normal/visual mode)
+**Purpose**: Modern search/replace interface with visual feedback (triggered with `g/`).
 
 #### Text Case (`text-case.lua`)
 
-Text case conversion utilities.
+Enhanced text case conversion with Telescope integration.
 
-**Commands:**
+**Purpose**: Convert text between camelCase, snake_case, UPPER_CASE, etc. with interactive picker (`ga.`).
 
-- `:Subs` - Text substitution
-- `:TextCaseStartReplacingCommand` - Start case replacement
+#### Better Escape (`better-escape.lua`)
+
+Enhanced escape sequences for smoother editing.
+
+**Purpose**: Multiple escape options (jj, jk) with optimized timing to reduce conflicts.
+
+### Enhanced User Experience
+
+#### Todo Comments (`todo-comments.lua`)
+
+Highlight and navigate TODO comments with style.
+
+**Purpose**: Beautiful highlighting of TODO, FIXME, HACK, etc. with navigation (`]t`/`[t`) and search integration.
+
+#### Better Quickfix (`nvim-bqf.lua`)
+
+Enhanced quickfix window experience with better navigation and preview.
+
+**Purpose**: Improved quickfix list with preview capabilities and better interaction.
 
 ### Git Integration
 
 #### Git Conflict (`git-conflict.lua`)
 
-Enhanced git conflict resolution.
+Enhanced git conflict resolution with visual indicators and quick actions.
 
-**Key Bindings:**
-
-- `<leader>ho` - Choose ours (current branch)
-- `<leader>ht` - Choose theirs (incoming branch)
-- `<leader>h0` - Choose none (delete conflict)
-- `<leader>hb` - Choose both (keep both changes)
-- `]x` - Next conflict
-- `[x` - Previous conflict
-- `<leader>gx` - List all conflicts in quickfix
-- `<leader>gr` - Refresh conflicts
+**Purpose**: Streamlined conflict resolution with clear visual markers and shortcuts for choosing changes. Navigate between conflicts and manage resolution efficiently.
 
 ### Development Tools
 
 #### Guess Indent (`guess-indent.lua`)
 
-Automatically detects and sets indentation.
+Automatically detects and sets indentation based on file content.
+
+**Purpose**: Smart indentation detection that overrides editorconfig when needed.
 
 #### TS Comments (`ts-comments.lua`)
 
-Enhanced commenting with TreeSitter integration.
+Enhanced commenting with TreeSitter integration for better language support.
+
+#### Mini Files Navigation (`extend-mini-files.lua`)
+
+Enhanced mini-files explorer with convenient access to different directory contexts.
+
+**Purpose**: Quick file navigation with shortcuts for current file directory, working directory, and project root.
+
+#### Session Management (`extend-snacks.lua`)
+
+Enhanced dashboard with session management integration.
+
+**Purpose**: Quick access to previous sessions directly from the dashboard for faster project switching.
 
 ### Extended LazyVim Plugins
 
@@ -179,12 +205,10 @@ The configuration extends several LazyVim plugins with custom settings:
 
 - **`extend-bufferline.lua`** - Enhanced buffer line customization
 - **`extend-gitsigns.lua`** - Extended git signs functionality
-- **`extend-mini-files.lua`** - Mini files explorer enhancements
 - **`extend-mini-surround.lua`** - Surround text object extensions
 - **`extend-neotest.lua`** - Testing framework customizations
 - **`extend-nvim-dap.lua`** - Debug adapter protocol extensions
 - **`extend-nvim-lspconfig.lua`** - LSP configuration extensions
-- **`extend-snacks.lua`** - Snacks plugin customizations
 
 ### Disabled Plugins
 
@@ -194,32 +218,52 @@ Neo-tree file explorer is disabled in favor of mini-files and snacks explorer.
 
 ## 🎯 Key Features & Workflows
 
+### Discovering Key Bindings
+
+Rather than duplicating all key bindings in this guide, use these methods to discover them:
+
+**In Neovim:**
+
+- Press `<leader>` and wait → WhichKey shows available leader mappings
+- Type `:map` → Show all current mappings
+- Type `:map <key>` → Show mappings for a specific key
+- Use `:Telescope keymaps` → Search through all key mappings
+
+**In Configuration Files:**
+
+- Check `lua/config/keymaps.lua` for core mappings
+- Each plugin file documents its specific key bindings
+- Plugin descriptions include their primary triggers
+
 ### Development Workflow
 
 1. **File Navigation**
-   - Use `<leader>ff` (from LazyVim) for fuzzy file finding
-   - Use mini-files with `<leader>e` for tree-style navigation
-   - Use `<Alt-hjkl>` for smart window navigation
+   - Fuzzy finding with Telescope
+   - Tree-style navigation with mini-files (current, working, root directories)
+   - Smart window navigation with Alt+hjkl
 
 2. **Code Editing**
-   - `jj` for quick escape from insert mode
-   - Smart word motions with `w`, `e`, `b`
-   - GitHub Copilot for AI-assisted coding
-   - Text case conversion utilities
+   - Enhanced escape sequences and quick save
+   - Smart word motions and text manipulation
+   - AI-assisted coding with GitHub Copilot
+   - Interactive case conversion and search/replace
 
 3. **Git Integration**
-   - Built-in git signs and blame
-   - Advanced conflict resolution with git-conflict
+   - Visual git signs and blame information
+   - Streamlined conflict resolution with visual indicators
    - Comprehensive git operations through LazyVim
 
-4. **Search & Replace**
-   - Use `g/` for interactive search/replace with rip-substitute
-   - LazyVim's built-in telescope search capabilities
+4. **Search & Development**
+   - Interactive search/replace with live preview
+   - Auto-centered search results and navigation
+   - Todo management with highlighting and navigation
+   - Enhanced quickfix and debugging workflows
 
-5. **Testing & Debugging**
-   - Integrated testing with neotest
-   - Debug Adapter Protocol (DAP) support
-   - Multiple language support
+5. **Quality of Life**
+   - Visual feedback for copy operations
+   - Automatic directory creation
+   - Quick close for helper windows
+   - Session management for project switching
 
 ### AI-Assisted Development
 
@@ -291,6 +335,16 @@ end, { desc = "Custom action" })
 - **Smart Defaults**: Optimized settings for modern development
 - **Fast Startup**: Typically < 50ms startup time
 - **Memory Efficient**: Minimal RAM usage compared to full IDE
+- **Enhanced Caching**: Enabled lazy.nvim cache for faster subsequent loads
+- **Disabled Plugins**: Removed unnecessary default plugins (gzip, tar, zip, etc.)
+- **Optimized Timeouts**: Faster completion (200ms) and which-key (500ms)
+
+### Performance Enhancements
+
+- **updatetime**: 200ms for faster completion and CursorHold events
+- **timeoutlen**: 500ms for quicker which-key popup
+- **undolevels**: 10,000 for extensive undo history without performance impact
+- **Persistent undo**: Undo history survives Neovim restarts
 
 ## 🔄 Maintenance
 
@@ -357,10 +411,50 @@ config checkout
 
 ## 📚 Resources
 
+### Quick Reference
+
+For specific key bindings and implementation details, check these files:
+
+- **Core Mappings**: `lua/config/keymaps.lua`
+- **Plugin Configs**: `lua/plugins/*.lua` (each file documents its bindings)
+- **Options**: `lua/config/options.lua`
+- **Autocmds**: `lua/config/autocmds.lua`
+- **LazyVim Extras**: `lazyvim.json`
+
+### External Documentation
+
 - [LazyVim Documentation](https://lazyvim.github.io/)
 - [lazy.nvim Plugin Manager](https://github.com/folke/lazy.nvim)
 - [Neovim Documentation](https://neovim.io/doc/)
 - [Configuration Repository](https://github.com/philfuster/dotfiles)
+
+## 🚀 Recent Improvements & Features
+
+### Enhanced Core Configuration
+
+- **Better Options**: Added performance tweaks, scroll offsets, smart search, and persistent undo
+- **Enhanced Keymaps**: Added text movement, better indenting, centered navigation, and quick save
+- **Smart Autocmds**: Automatic yank highlighting, directory creation, and quick close for special buffers
+
+### New Plugin Additions
+
+- **better-escape.nvim**: Multiple escape sequences (`jj`, `jk`) with optimized timing
+- **todo-comments.nvim**: Beautiful TODO highlighting with navigation and Telescope integration
+- **nvim-bqf**: Enhanced quickfix window experience
+
+### Plugin Improvements
+
+- **text-case.nvim**: Added Telescope integration for interactive case conversion
+- **nvim-spider**: Fixed typo in description for better documentation
+- **lazy.nvim**: Enabled caching for improved performance
+
+### User Experience Enhancements
+
+- **Visual Feedback**: Highlight yanked text for better copy/paste awareness
+- **Smart Directory Creation**: Automatically create parent directories when saving files
+- **Centered Navigation**: Search results and page scrolling stay centered
+- **Quick Access**: Enhanced file navigation with multiple directory options
+- **Session Management**: Added session selection to dashboard
 
 ---
 

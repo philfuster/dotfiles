@@ -6,7 +6,7 @@ return {
       "w",
       "<cmd>lua require('spider').motion('w')<CR>",
       mode = { "n", "o", "x" },
-      desc = "Move to start of next work",
+      desc = "Move to start of next word",
     },
     {
       "e",

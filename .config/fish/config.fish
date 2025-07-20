@@ -10,7 +10,14 @@ if status is-interactive; and test (uname) = Linux
 
     function :ngcd -d 'clean install of nextgen dependencies'
         pushd ~/code/projects/storis/nextgen/
-        pnpm install && pnpm dedupe && pnpm prune && pnpm install
+        pnpm install && pnpm dedupe && pnpm install
+        popd
+    end
+
+    function :ngpnpm -d 'run pnpm commands in nextgen using nvm version'
+        pushd ~/code/projects/storis/nextgen/
+        nvm use >/dev/null
+        ~/.local/share/nvm/v22.14.0/bin/pnpm $argv
         popd
     end
 
@@ -23,6 +30,15 @@ if status is-interactive; and test (uname) = Linux
         end
     end
 
+    # set -gx SSH_AUTH_SOCK=$(npiperelay.exe -ei -s //./pipe/openssh-ssh-agent)
+
+    # pnpm standalone is never used
+    set -gx PNPM_HOME "/home/paf/.local/share/pnpm/"
+    function gpnpm -d "use the global pnpm install"
+        set -fx PATH "$PNPM_HOME" $PATH
+        pnpm $argv
+    end
+
     # set user local bin paths
     set -U fish_user_paths ~/.local/bin /opt/nvim-linux-x86_64/bin $fish_user_paths
 
@@ -33,3 +49,8 @@ if status is-interactive; and test (uname) = Linux
 end
 
 set -g fish_greeting
+
+# if not string match -q -- $PNPM_HOME $PATH
+#   set -gx PATH "$PNPM_HOME" $PATH
+# end
+# pnpm end

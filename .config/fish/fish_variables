@@ -1,7 +1,7 @@
 # This file contains fish universal variable definitions.
 # VERSION: 3.0
-SETUVAR --export SSH_AGENT_PID:10663
-SETUVAR --export SSH_AUTH_SOCK:/tmp/ssh\x2d3NXa5p9wbv3i/agent\x2e10662
+SETUVAR --export SSH_AGENT_PID:22837
+SETUVAR --export SSH_AUTH_SOCK:/tmp/ssh\x2d7T2GVOLa2rdr/agent\x2e22836
 SETUVAR --export XDG_RUNTIME_DIR:/home/paf/\x2etmp
 SETUVAR __fish_initialized:3400
 SETUVAR _fisher_budimanjojo_2F_tmux_2E_fish_files:\x7e/\x2econfig/fish/conf\x2ed/tmux\x2eextra\x2econf\x1e\x7e/\x2econfig/fish/conf\x2ed/tmux\x2efish\x1e\x7e/\x2econfig/fish/conf\x2ed/tmux\x2eonly\x2econf
@@ -49,4 +49,4 @@ SETUVAR fish_pager_color_selected_completion:f8f8f2
 SETUVAR fish_pager_color_selected_description:6272a4
 SETUVAR fish_pager_color_selected_prefix:8be9fd
 SETUVAR fish_user_paths:/home/paf/\x2elocal/bin\x1e/opt/nvim\x2dlinux\x2dx86_64/bin\x1e/opt/nvim\x2dlinux\x2dx86_64\x1e/opt/neovim\x2dlinux\x2dx86_64\x1e/opt/neovim_linux86\x1e/opt/nvim\x2dlinux64/bin
-SETUVAR nvm_default_version:v22\x2e12\x2e0
+SETUVAR nvm_default_version:22\x2e14\x2e0

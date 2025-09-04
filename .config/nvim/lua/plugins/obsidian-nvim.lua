@@ -25,6 +25,10 @@ return {
         name = "storis-vault",
         path = "~/documents/storis-vault",
       },
+      {
+        name = "ovMyMind",
+        path = "~/documents/ovMyMind",
+      },
     },
 
     -- see below for full list of options 👇

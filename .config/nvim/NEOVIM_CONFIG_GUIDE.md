@@ -19,8 +19,49 @@ This document provides a comprehensive overview of this Neovim configuration, wh
 │   └── plugins/             # Plugin configurations
 │       ├── disabled.lua     # Disabled default plugins
 │       ├── extend-*.lua     # Extended LazyVim plugin configs
+│       ├── extend-conform.lua # Custom conform.nvim formatter config (e.g., Prettier config path)
 │       └── [custom plugins] # Additional plugin configurations
-```
+## 📝 Markdown Formatting & Linting
+
+This configuration uses **Prettier** (via Mason and conform.nvim) for formatting markdown files. The setup ensures:
+
+- Prettier is installed and managed by Mason (`:Mason` in Neovim).
+- A Prettier config file (e.g., `~/.config/prettierrc` or `.prettierrc.yaml`) is used to control formatting options, such as line length and prose wrapping. Example YAML config:
+
+  ```yaml
+  overrides:
+    - files: "*.md"
+      options:
+        printWidth: 80
+        proseWrap: always
+  ```
+
+- The file `lua/plugins/extend-conform.lua` ensures Prettier always uses your config file by adding:
+
+  ```lua
+  return {
+    "stevearc/conform.nvim",
+    opts = {
+      formatters = {
+        prettier = {
+          prepend_args = { "--config", vim.fn.expand("~/.config/prettierrc.yaml") },
+        },
+      },
+    },
+  }
+  ```
+
+- Markdown linting is provided by `markdownlint-cli2`, also managed by Mason. Diagnostics appear as virtual text or in the diagnostics panel.
+
+**Troubleshooting:**
+
+- If formatting does not wrap lines, ensure your Prettier config is valid YAML or JSON and matches the file extension.
+- If Prettier is unavailable, check Mason install, PATH, and that `vim.g.lazyvim_prettier_needs_config` is set appropriately.
+
+**Key commands:**
+
+- Format: `<leader>cf` or `:lua require("conform").format()`
+- Lint: Diagnostics appear automatically; use `:Trouble` or `:lua vim.diagnostic.open_float()` to view.
 
 ## 🛠 Base Configuration (LazyVim)
 

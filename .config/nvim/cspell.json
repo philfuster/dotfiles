@@ -1,0 +1,13 @@
+{
+    "version": "0.2",
+    "ignorePaths": [],
+    "dictionaryDefinitions": [],
+    "dictionaries": [],
+    "words": [
+        "lazypath",
+        "lazyrepo",
+        "nvim"
+    ],
+    "ignoreWords": [],
+    "import": []
+}

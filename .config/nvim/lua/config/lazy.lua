@@ -36,21 +36,25 @@ require("lazy").setup({
     notify = false, -- notify on update
   }, -- automatically check for plugin updates
   performance = {
+    cache = {
+      enabled = true,
+    },
+    reset_packpath = true, -- Reset packpath to improve startup
     rtp = {
-      -- disable some rtp plugins
+      reset = true, -- Reset runtimepath
       disabled_plugins = {
         "gzip",
         -- "matchit",
         -- "matchparen",
-        -- "netrwPlugin",
+        "netrwPlugin", -- Disable netrw completely
+        "netrw",
+        "netrwSettings",
+        "netrwFileHandlers",
         "tarPlugin",
         "tohtml",
         "tutor",
         "zipPlugin",
       },
-    },
-    cache = {
-      enabled = true,
     },
   },
 })

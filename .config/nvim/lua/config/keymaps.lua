@@ -2,9 +2,6 @@
 -- Default keymaps that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/keymaps.lua
 -- Add any additional keymaps here
 
--- Better escape
-vim.api.nvim_set_keymap("i", "jj", "<Esc>", { noremap = true, silent = true })
-
 -- Better indenting
 vim.keymap.set("v", "<", "<gv", { desc = "Indent left and keep selection" })
 vim.keymap.set("v", ">", ">gv", { desc = "Indent right and keep selection" })

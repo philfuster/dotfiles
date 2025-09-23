@@ -16,3 +16,11 @@ vim.opt.undolevels = 10000
 
 vim.opt.splitright = true
 vim.opt.splitbelow = true
+
+vim.opt.shada = "!,'300,<50,s10,h" -- Smaller shada file
+vim.opt.backup = false -- No backup files
+vim.opt.writebackup = false -- No write backup
+vim.opt.swapfile = false -- No swap (we have undofile)
+
+-- Set LSP log level to reduce overhead
+vim.lsp.set_log_level("ERROR")

@@ -12,6 +12,7 @@ return {
       json = { "prettier", "biome", stop_after_first = true },
       jsonc = { "prettier", "biome", stop_after_first = true },
       css = { "prettier", "biome", stop_after_first = true },
+      markdown = { "prettier", "biome", stop_after_first = true },
     },
   },
 }

@@ -10,11 +10,5 @@ return {
     opts.notifier.style = opts.notifier.style or {}
     opts.notifier.style.wo = opts.notifier.style.wo or {}
     opts.notifier.style.wo.wrap = true
-
-    -- Configure gh to open URLs in Windows browser from WSL2
-    opts.gh = opts.gh or {}
-    opts.gh.browser = function(url)
-      vim.fn.system({ "bash", "-c", "cd /mnt/c && cmd.exe /c start '' " .. vim.fn.shellescape(url) })
-    end
   end,
 }

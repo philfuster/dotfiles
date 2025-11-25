@@ -23,10 +23,77 @@ if status is-interactive; and test (uname) = Linux
 
     # set up keychain so you don't have to enter passphrases all the time for ssh
     function fish_keychain -d "add ssh key to keychain"
-        set SSH_PRIVATE_KEYS ~/.ssh/id_rsa
+        set -l ENV_FILE ~/.config/fish/.env
+
+        # Check .env file exists
+        if not test -f $ENV_FILE
+            echo "Error: $ENV_FILE not found. Copy .env.template and configure it."
+            return 1
+        end
+
+        # Check dependencies
+        if not command -q expect
+            echo "Error: 'expect' command not found. Install with: sudo apt install expect"
+            return 1
+        end
+
+        if not command -q keychain
+            echo "Error: 'keychain' command not found. Install with: sudo apt install keychain"
+            return 1
+        end
+
+        # Source .env file to load SSH_PRIVATE_KEYS and SSH_KEY_PASSPHRASE
+        source $ENV_FILE
+
+        # Validate required variables
+        if not set -q SSH_PRIVATE_KEYS; or test -z "$SSH_PRIVATE_KEYS"
+            echo "Error: SSH_PRIVATE_KEYS not set in $ENV_FILE"
+            return 1
+        end
+
+        if not set -q SSH_KEY_PASSPHRASE; or test -z "$SSH_KEY_PASSPHRASE"
+            echo "Error: SSH_KEY_PASSPHRASE not set in $ENV_FILE"
+            return 1
+        end
+
+        # Expand tilde and validate key file exists
+        set -l expanded_keys (string replace '~' $HOME $SSH_PRIVATE_KEYS)
+        if not test -f $expanded_keys
+            echo "Error: SSH key file not found: $expanded_keys"
+            return 1
+        end
+
         if test (uname) = Linux
-            SHELL=fish keychain --agents ssh --quiet --eval $SSH_PRIVATE_KEYS \
-                | source
+            # Use expect to automate passphrase entry
+            expect -c "
+                set timeout 30
+                log_user 0
+                spawn env SHELL=fish keychain --agents ssh $expanded_keys
+                expect {
+                    -re {Enter passphrase.*:} {
+                        send \"$env(SSH_KEY_PASSPHRASE)\r\"
+                        exp_continue
+                    }
+                    -re {Bad passphrase} {
+                        puts stderr \"Error: Incorrect passphrase\"
+                        exit 1
+                    }
+                    timeout {
+                        puts stderr \"Error: keychain timed out\"
+                        exit 1
+                    }
+                    eof
+                }
+            " >/dev/null 2>&1
+
+            # Check expect exit status
+            if test $status -ne 0
+                echo "Error: Failed to unlock SSH keys"
+                return 1
+            end
+
+            # Source keychain environment variables
+            eval (keychain --eval --agents ssh $expanded_keys 2>/dev/null)
         end
     end
 

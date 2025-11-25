@@ -64,6 +64,9 @@ if status is-interactive; and test (uname) = Linux
         end
 
         if test (uname) = Linux
+            # Export passphrase for expect to access via $env()
+            set -x SSH_KEY_PASSPHRASE $SSH_KEY_PASSPHRASE
+
             # Use expect to automate passphrase entry
             expect -c "
                 set timeout 30
@@ -71,15 +74,13 @@ if status is-interactive; and test (uname) = Linux
                 spawn env SHELL=fish keychain --agents ssh $expanded_keys
                 expect {
                     -re {Enter passphrase.*:} {
-                        send \"$env(SSH_KEY_PASSPHRASE)\r\"
+                        send -- \"\$env(SSH_KEY_PASSPHRASE)\n\"
                         exp_continue
                     }
                     -re {Bad passphrase} {
-                        puts stderr \"Error: Incorrect passphrase\"
                         exit 1
                     }
                     timeout {
-                        puts stderr \"Error: keychain timed out\"
                         exit 1
                     }
                     eof

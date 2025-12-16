@@ -108,7 +108,7 @@ if status is-interactive; and test (uname) = Linux
     end
 
     # set user local bin paths
-    set -U fish_user_paths ~/.local/bin /opt/nvim-linux-x86_64/bin $fish_user_paths
+    set -U fish_user_paths ~/.local/bin /opt/nvim-linux-x86_64/bin $fish_user_paths /usr/local/go/bin (go env GOPATH)/bin
 
     # set up keychain for github ssh and prompt for passphrase
     # off right now because accepting input on start up doesn't work with warp

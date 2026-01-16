@@ -100,12 +100,12 @@ if status is-interactive; and test (uname) = Linux
 
     # set -gx SSH_AUTH_SOCK=$(npiperelay.exe -ei -s //./pipe/openssh-ssh-agent)
 
-    # pnpm standalone is never used
+    # pnpm
     set -gx PNPM_HOME "/home/paf/.local/share/pnpm/"
-    function gpnpm -d "use the global pnpm install"
-        set -fx PATH "$PNPM_HOME" $PATH
-        pnpm $argv
+    if not string match -q -- $PNPM_HOME $PATH
+        set -gx PATH "$PNPM_HOME" $PATH
     end
+    # pnpm end
 
     # set user local bin paths
     set -U fish_user_paths ~/.local/bin /opt/nvim-linux-x86_64/bin $fish_user_paths /usr/local/go/bin (go env GOPATH)/bin

@@ -99,26 +99,12 @@ if status is-interactive; and test (uname) = Linux
     end
 
     # set -gx SSH_AUTH_SOCK=$(npiperelay.exe -ei -s //./pipe/openssh-ssh-agent)
-
     # pnpm
     set -gx PNPM_HOME "/home/paf/.local/share/pnpm/"
     if not string match -q -- $PNPM_HOME $PATH
         set -gx PATH "$PNPM_HOME" $PATH
     end
-    # pnpm end
-
     # set user local bin paths
-    set -U fish_user_paths ~/.local/bin /opt/nvim-linux-x86_64/bin $fish_user_paths /usr/local/go/bin
-
-    # set up keychain for github ssh and prompt for passphrase
-    # off right now because accepting input on start up doesn't work with warp
-    # on windows right now
-    # fish_keychain
+    set -U fish_user_paths ~/.local/bin /opt/nvim-linux-x86_64/bin $fish_user_paths /usr/local/go/bin# pnpm end
+    set -g fish_greeting
 end
-
-set -g fish_greeting
-
-# if not string match -q -- $PNPM_HOME $PATH
-#   set -gx PATH "$PNPM_HOME" $PATH
-# end
-# pnpm end

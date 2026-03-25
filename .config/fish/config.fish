@@ -107,4 +107,19 @@ if status is-interactive; and test (uname) = Linux
     # set user local bin paths
     set -U fish_user_paths ~/.local/bin /opt/nvim-linux-x86_64/bin $fish_user_paths /usr/local/go/bin# pnpm end
     set -g fish_greeting
+
+    # Vi mode
+    set -g fish_key_bindings fish_vi_key_bindings
+
+    # Cursor shapes per mode
+    set fish_cursor_default block
+    set fish_cursor_insert line
+    set fish_cursor_replace_one underscore
+    set fish_cursor_replace underscore
+    set fish_cursor_visual block
+
+    # Force cursor shape changes inside tmux
+    if string match -q -- 'tmux*' $TERM
+        set -g fish_vi_force_cursor 1
+    end
 end

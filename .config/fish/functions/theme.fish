@@ -3,8 +3,8 @@ function theme --description "Switch fish theme between work (Dracula) and knick
         case knicks
             set -U nim_theme knicks
 
-            set -U fish_color_command 006BB6
-            set -U fish_color_keyword 006BB6
+            set -U fish_color_command 1E90FF
+            set -U fish_color_keyword 1E90FF
             set -U fish_color_param BEC0C2
             set -U fish_color_quote F58426
             set -U fish_color_redirection F58426
@@ -15,7 +15,7 @@ function theme --description "Switch fish theme between work (Dracula) and knick
             set -U fish_color_autosuggestion 4a4d50
             set -U fish_color_normal BEC0C2
             set -U fish_color_user F58426
-            set -U fish_color_host 006BB6
+            set -U fish_color_host 1E90FF
             set -U fish_color_host_remote cyan
             set -U fish_color_cwd BEC0C2
             set -U fish_color_cwd_root red

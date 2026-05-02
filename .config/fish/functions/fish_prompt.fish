@@ -26,18 +26,18 @@ function fish_prompt
     # Plain `set` (no -l) so vars are function-scoped, not block-scoped.
     if test "$nim_theme" = knicks
         # Knicks: Blue / Orange / Silver
-        set c_ok 006BB6
+        set c_ok 1E90FF
         set c_fail red
         set c_bracket BEC0C2
         set c_user F58426
         set c_user_root red
         set c_at BEC0C2
-        set c_host_local 006BB6
+        set c_host_local 1E90FF
         set c_host_ssh cyan
         set c_path BEC0C2
         set c_mode_n red
-        set c_mode_i 006BB6
-        set c_mode_r1 006BB6
+        set c_mode_i 1E90FF
+        set c_mode_r1 1E90FF
         set c_mode_r cyan
         set c_mode_v F58426
         set c_jobs F58426

@@ -117,7 +117,7 @@ themes ship today:
 
 - **`work`** (default, Dracula) — the original look. Cyan commands, yellow
   strings, purple params, green frame on success.
-- **`knicks`** — New York Knicks colors. Blue `#006BB6`, Orange `#F58426`,
+- **`knicks`** — New York Knicks colors. Blue `#1E90FF`, Orange `#F58426`,
   Silver `#BEC0C2`, with red kept for true errors.
 
 ### Switching
@@ -151,17 +151,17 @@ Two layers, controlled separately:
 
 | Element               | Default (Dracula) | Knicks         |
 | --------------------- | ----------------- | -------------- |
-| Frame on success      | `green`           | `#006BB6`      |
+| Frame on success      | `green`           | `#1E90FF`      |
 | Frame on failure      | `red`             | `red`          |
 | Brackets `[ ]`        | bold `green`      | bold `#BEC0C2` |
 | Username (you)        | bold `yellow`     | bold `#F58426` |
 | Username (root)       | bold `red`        | bold `red`     |
 | `@` separator         | bold `white`      | bold `#BEC0C2` |
-| Hostname (local)      | bold `blue`       | bold `#006BB6` |
+| Hostname (local)      | bold `blue`       | bold `#1E90FF` |
 | Hostname (SSH)        | bold `cyan`       | bold `cyan`    |
 | Path                  | bold `white`      | bold `#BEC0C2` |
 | Vi mode `N` (normal)  | `red`             | `red`          |
-| Vi mode `I` (insert)  | `green`           | `#006BB6`      |
+| Vi mode `I` (insert)  | `green`           | `#1E90FF`      |
 | Vi mode `R` (replace) | `cyan`            | `cyan`         |
 | Vi mode `V` (visual)  | `magenta`         | `#F58426`      |
 | Background job text   | `brown`           | `#F58426`      |
@@ -171,8 +171,8 @@ Two layers, controlled separately:
 
 | `fish_color_*`    | Default (Dracula)     | Knicks                |
 | ----------------- | --------------------- | --------------------- |
-| `command`         | `8be9fd`              | `006BB6`              |
-| `keyword`         | unset                 | `006BB6`              |
+| `command`         | `8be9fd`              | `1E90FF`              |
+| `keyword`         | unset                 | `1E90FF`              |
 | `param`           | `bd93f9`              | `BEC0C2`              |
 | `quote`           | `f1fa8c`              | `F58426`              |
 | `redirection`     | `f8f8f2`              | `F58426`              |
@@ -183,14 +183,14 @@ Two layers, controlled separately:
 | `autosuggestion`  | `6272a4`              | `4a4d50`              |
 | `normal`          | `f8f8f2`              | `BEC0C2`              |
 | `user`            | `8be9fd`              | `F58426`              |
-| `host`            | `bd93f9`              | `006BB6`              |
+| `host`            | `bd93f9`              | `1E90FF`              |
 | `host_remote`     | unset                 | `cyan`                |
 | `cwd`             | `50fa7b`              | `BEC0C2`              |
 | `cwd_root`        | `red`                 | `red`                 |
 | `end`             | `ffb86c`              | `F58426`              |
 | `status`          | `red`                 | `red`                 |
 | `cancel`          | `ff5555 --reverse`    | `ff5555 --reverse`    |
-| `match`           | `--background=brblue` | `--background=006BB6` |
+| `match`           | `--background=brblue` | `--background=1E90FF` |
 | `search_match`    | `--background=44475a` | `--background=003a66` |
 | `selection`       | `--background=44475a` | `--background=003a66` |
 | `valid_path`      | `--underline`         | `--underline`         |

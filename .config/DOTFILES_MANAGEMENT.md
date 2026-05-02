@@ -33,6 +33,8 @@ end
 
 This function replaces the bash alias from the original tutorial and works seamlessly with fish shell.
 
+For fish-specific config docs (prompt, theme switcher, plugins, key bindings), see [`fish/README.md`](fish/README.md).
+
 ## Managing Your Neovim Configuration
 
 ### Basic Operations

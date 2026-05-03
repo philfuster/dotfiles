@@ -8,16 +8,9 @@ if status is-interactive; and test (uname) = Linux
         pushd ~/code/projects/storis/nextgen/
     end
 
-    function :ngcd -d 'clean install of nextgen dependencies'
+    function :ngcd -d 'Clean nextgen dependencies'
         pushd ~/code/projects/storis/nextgen/
-        pnpm install && pnpm dedupe && pnpm install
-        popd
-    end
-
-    function :ngpnpm -d 'run pnpm commands in nextgen using nvm version'
-        pushd ~/code/projects/storis/nextgen/
-        nvm use >/dev/null
-        ~/.local/share/nvm/v22.14.0/bin/pnpm $argv
+        pnpm install && pnpm prune && pnpm dedupe && pnpm install
         popd
     end
 
@@ -98,7 +91,6 @@ if status is-interactive; and test (uname) = Linux
         end
     end
 
-    # set -gx SSH_AUTH_SOCK=$(npiperelay.exe -ei -s //./pipe/openssh-ssh-agent)
     # pnpm
     set -gx PNPM_HOME "/home/paf/.local/share/pnpm/"
     if not string match -q -- $PNPM_HOME $PATH

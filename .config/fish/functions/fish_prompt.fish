@@ -1,3 +1,23 @@
+function _nim_prompt_wrapper
+    set -l retc $argv[1]
+    set -l field_name $argv[2]
+    set -l field_value $argv[3]
+    set -l bracket_color $argv[4]
+
+    set_color normal
+    set_color $retc
+    echo -n '─'
+    set_color -o $bracket_color
+    echo -n '['
+    set_color normal
+    test -n "$field_name"
+    and echo -n $field_name:
+    set_color $retc
+    echo -n $field_value
+    set_color -o $bracket_color
+    echo -n ']'
+end
+
 function fish_prompt
     # This prompt shows:
     # - green lines if the last return command is OK, red otherwise
@@ -67,26 +87,6 @@ function fish_prompt
     set -q __fish_git_prompt_showupstream
     or set -g __fish_git_prompt_showupstream auto
 
-    function _nim_prompt_wrapper
-        set retc $argv[1]
-        set -l field_name $argv[2]
-        set -l field_value $argv[3]
-        set -l bracket_color $argv[4]
-
-        set_color normal
-        set_color $retc
-        echo -n '─'
-        set_color -o $bracket_color
-        echo -n '['
-        set_color normal
-        test -n $field_name
-        and echo -n $field_name:
-        set_color $retc
-        echo -n $field_value
-        set_color -o $bracket_color
-        echo -n ']'
-    end
-
     set_color $retc
     echo -n '┬─'
     set_color -o $c_bracket
@@ -117,11 +117,6 @@ function fish_prompt
     # Date
     _nim_prompt_wrapper $retc '' (date +%X) $c_bracket
 
-    # Vi-mode
-    # The default mode prompt would be prefixed, which ruins our alignment.
-    function fish_mode_prompt
-    end
-
     if test "$fish_key_bindings" = fish_vi_key_bindings
         or test "$fish_key_bindings" = fish_hybrid_key_bindings
         set -l mode
@@ -132,7 +127,6 @@ function fish_prompt
                 set mode (set_color --bold $c_mode_i)I
             case replace_one
                 set mode (set_color --bold $c_mode_r1)R
-                echo '[R]'
             case replace
                 set mode (set_color --bold $c_mode_r)R
             case visual

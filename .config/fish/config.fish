@@ -105,11 +105,11 @@ if status is-interactive; and test (uname) = Linux
         set -gx PATH "$PNPM_HOME" $PATH
     end
     # set user local bin paths
-    set -U fish_user_paths ~/.local/bin /opt/nvim-linux-x86_64/bin $fish_user_paths /usr/local/go/bin# pnpm end
+    fish_add_path --universal ~/.local/bin /opt/nvim-linux-x86_64/bin /usr/local/go/bin
     set -g fish_greeting
 
     # Vi mode
-    set -g fish_key_bindings fish_vi_key_bindings
+    set -U fish_key_bindings fish_vi_key_bindings
 
     # Cursor shapes per mode
     set fish_cursor_default block

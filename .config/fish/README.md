@@ -14,7 +14,7 @@ layered on top via per-machine universal variables.
 | `functions/theme.fish`               | Theme switcher (`theme knicks` / `theme work`)                                                                 |
 | `functions/fisher.fish`              | [fisher](https://github.com/jorgebucaran/fisher) plugin manager (installed by fisher itself)                   |
 | `functions/nvm.fish` + `_nvm_*.fish` | Node Version Manager (from `jorgebucaran/nvm.fish` plugin)                                                     |
-| `conf.d/`                            | Auto-loaded snippets — currently `nvm.fish` and three `tmux.*` files from the tmux plugin                      |
+| `conf.d/`                            | Auto-loaded snippets — `nvm.fish`, three `tmux.*` files (tmux plugin), `vi_mode_repaint.fish` (vi-mode repaint hook) |
 | `completions/`                       | Fish completions for `fisher` and `nvm`                                                                        |
 | `fish_plugins`                       | Manifest of fisher-managed plugins                                                                             |
 | `fish_variables`                     | Universal variables (syntax colors, fisher state, paths). **Per-machine**, written by `set -U`.                |
@@ -107,8 +107,15 @@ always render. Venv, git, and battery only appear when relevant.
 **Frame color** tracks the previous command's exit status: green/blue (success)
 or red (failure). This is the `┬`, `─`, `│`, `╰─>` glyphs.
 
-**Vi mode** is shown as a single-letter indicator: `N` (normal), `I` (insert),
-`R` (replace), `V` (visual). Color varies per mode and per theme.
+**Vi mode** is shown as a single inline letter — `N`/`I`/`R`/`V`, themed per
+mode — inside the prompt's bracket structure. The stock left-side
+`fish_mode_prompt` is suppressed (`functions/fish_mode_prompt.fish` is
+intentionally empty) so we don't get a double indicator: Warp hides the stock
+one via its block UI, but tmux passes raw fish output through and would
+otherwise surface it. To keep the inline indicator reactive on `<Esc>`,
+`conf.d/vi_mode_repaint.fish` listens on `fish_bind_mode` and forces a
+`repaint` — fish only redraws `fish_mode_prompt` on a mode change by default,
+not the whole prompt.
 
 ## Themes
 
@@ -287,6 +294,13 @@ set -gx SSH_KEY_PASSPHRASE <your-passphrase>
 **Prompt characters look like boxes/squares** — your terminal font lacks the
 box-drawing glyphs (`┬`, `─`, `│`, `╰`). Switch to a Nerd Font or any font with
 full box-drawing coverage (Cascadia Code, MesloLGS NF, JetBrains Mono).
+
+**Two vi-mode indicators inside tmux** — the stock `fish_mode_prompt` is leaking
+through. Make sure `~/.config/fish/functions/fish_mode_prompt.fish` exists and
+is an empty function; without it, fish falls back to `fish_default_mode_prompt`
+and Warp's block-UI hiding only applies outside tmux. Pair it with the
+`--on-variable fish_bind_mode` repaint handler in
+`conf.d/vi_mode_repaint.fish` so the inline indicator updates on `<Esc>`.
 
 ## See also
 

@@ -15,10 +15,12 @@ return {
       TEST = { icon = "⏲ ", color = "test", alt = { "TESTING", "PASSED", "FAILED" } },
     },
   },
+  -- <leader>st / <leader>sT are deliberately absent: Telescope is not installed (this
+  -- config uses the snacks_picker extra). User specs merge after LazyVim's, so listing
+  -- them here would clobber that extra's working Snacks.picker.todo_comments() mappings.
+  -- stylua: ignore
   keys = {
     { "]t", function() require("todo-comments").jump_next() end, desc = "Next todo comment" },
     { "[t", function() require("todo-comments").jump_prev() end, desc = "Previous todo comment" },
-    { "<leader>st", "<cmd>TodoTelescope<cr>", desc = "Todo" },
-    { "<leader>sT", "<cmd>TodoTelescope keywords=TODO,FIX,FIXME<cr>", desc = "Todo/Fix/Fixme" },
   },
 }

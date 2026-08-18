@@ -11,10 +11,10 @@ return {
       vim.g.loaded_dooing = 1
     end,
     opts = {
-      -- One global list, shared across every project. Kept in the vault so it survives an
+      -- One global list, shared across every project. Kept in the .config so it survives an
       -- ~/.local/share/nvim wipe and syncs with the rest of the notes. Per-project lists
       -- (below) are what give per-repo separation.
-      save_path = vim.fn.expand("~/documents/storis-vault/dooing_todos.json"),
+      save_path = vim.fn.expand("~/.config/dooing_todos.json"),
       pretty_print_json = true, -- readable line-level diffs in the vault repo
       timestamp = {
         enabled = true, -- Show relative timestamps (e.g., @5m ago, @2h ago)
@@ -42,6 +42,7 @@ return {
         toggle_window = false,
         open_project_todo = false,
         show_due_notification = false,
+        create_nested_task = "<leader>kn",
       },
     },
     keys = {

@@ -16,6 +16,14 @@ return {
       -- (below) are what give per-repo separation.
       save_path = vim.fn.expand("~/documents/storis-vault/dooing_todos.json"),
       pretty_print_json = true, -- readable line-level diffs in the vault repo
+      timestamp = {
+        enabled = true, -- Show relative timestamps (e.g., @5m ago, @2h ago)
+      },
+
+      ui = {
+        style = "modern",
+      },
+
       due_notifications = {
         enabled = true,
         on_startup = true, -- only fires because of the VeryLazy load above

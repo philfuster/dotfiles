@@ -35,11 +35,13 @@ Each CEP follows a standard format:
 
 ## CEP Index
 
-| CEP                                         | Title                        | Status | Created    | Updated |
-| ------------------------------------------- | ---------------------------- | ------ | ---------- | ------- |
-| [001](CEP-001-performance-optimizations.md) | Performance Optimizations    | Draft  | 2025-09-23 | -       |
-| [002](CEP-002-plugin-consolidation.md)      | Plugin Consolidation         | Draft  | 2025-09-23 | -       |
-| [003](CEP-003-lsp-improvements.md)          | LSP Performance Improvements | Draft  | 2025-09-23 | -       |
+| CEP                                         | Title                        | Status      | Created    | Updated    |
+| ------------------------------------------- | ---------------------------- | ----------- | ---------- | ---------- |
+| [001](CEP-001-performance-optimizations.md) | Performance Optimizations    | Draft       | 2025-09-23 | -          |
+| [002](CEP-002-plugin-consolidation.md)      | Plugin Consolidation         | Draft       | 2025-09-23 | -          |
+| [003](CEP-003-lsp-improvements.md)          | LSP Performance Improvements | Draft       | 2025-09-23 | -          |
+| [004](CEP-004-lazyvim-v15-upgrade.md)       | LazyVim v15 Upgrade          | Completed   | 2025-09-23 | 2025-09-23 |
+| [005](CEP-005-configuration-cleanup.md)     | Configuration Cleanup        | Implemented | 2025-01-02 | 2025-01-02 |
 
 ## Process
 

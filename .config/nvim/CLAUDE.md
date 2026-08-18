@@ -8,6 +8,19 @@ code in this repository.
 This is a LazyVim-based Neovim configuration with custom extensions. The
 configuration uses Lua for all settings and plugin management.
 
+### How the documentation divides up
+
+- **This file**: conventions, invariants, and gotchas. The rules to follow and
+  the things not to break.
+- **[NEOVIM_CONFIG_GUIDE.md](NEOVIM_CONFIG_GUIDE.md)**: feature and plugin
+  descriptions, workflows, and keymap discovery. The source of truth for what
+  this configuration does.
+- **[CEPs/README.md](CEPs/README.md)**: the index of Config Enhancement
+  Proposals.
+
+Do not restate the guide's content here. Link to it. Prose duplicated across
+these files has silently drifted out of date before.
+
 ## Architecture
 
 ### Core Structure
@@ -55,50 +68,26 @@ return {
 
 ## Common Development Commands
 
-### Plugin Management
+Commands that cannot be discovered from inside Neovim:
 
 ```vim
-:Lazy              " Open lazy.nvim UI
-:Lazy update       " Update all plugins
-:Lazy sync         " Sync plugin state with lockfile
-:Lazy profile      " Profile plugin load times
-```
-
-### LSP & Formatting
-
-```vim
-:LspInfo           " Check LSP status
+:Lazy              " Plugin manager UI (also update, sync, clean, profile)
 :Mason             " Manage LSP servers, formatters, linters
-:ConformInfo       " Check formatter status
-<leader>cf         " Format current file (or selection in visual mode)
+:LspInfo           " LSP status for the current buffer
+:ConformInfo       " Which formatter runs for the current buffer, and why
+:Trouble           " Diagnostics panel
+:checkhealth       " Verify Neovim and plugin health
 ```
 
-### File Navigation
+**Do not add a key binding list to this file.** Every previous copy went stale.
+Discover bindings live instead:
 
-```vim
-<leader>ff         " Find files (Telescope)
-<leader>fg         " Live grep (Telescope)
-<leader>fb         " Find buffers
-<leader>fh         " Find help tags
-:Telescope keymaps " Search all keymappings
-```
+- Press `<leader>` and wait for which-key to show the available mappings
+- `:map` or `:map <key>` for the current state of a mapping
+- Read the `keys` table in the relevant `lua/plugins/*.lua` file
 
-### Diagnostics & Testing
-
-```vim
-:Trouble           " Open diagnostics panel
-]d / [d           " Navigate diagnostics
-<leader>tt        " Run nearest test
-<leader>tf        " Run test file
-```
-
-### Git Operations
-
-```vim
-<leader>gg        " Open lazygit
-<leader>gb        " Git blame line
-]h / [h          " Navigate git hunks
-```
+See NEOVIM_CONFIG_GUIDE.md, "Discovering Key Bindings", for the full set of
+methods.
 
 ## Code Formatting
 
@@ -111,23 +100,23 @@ return {
 ### Markdown Files
 
 - **Formatter**: Prettier (via conform.nvim)
-- **Config Path**: `~/.config/.prettierrc` (defined in
-  `lua/plugins/extend-conform.lua`)
 - **Linter**: markdownlint-cli2 (via Mason)
+- **Effective options**: `printWidth: 80` and `proseWrap: always`, from
+  `~/.config/.prettierrc`. Prettier locates that file by searching upward from
+  the file being formatted, so everything under `~/.config` inherits it. No
+  config path is set anywhere in this repository.
 
 ### TypeScript/JavaScript
 
-- **Formatters**: Prettier or Biome (both available via LazyVim extras)
+- **Formatters**: Prettier when a Prettier config is found, Biome otherwise
 - **LSP**: TypeScript language server configured
 
 ## Testing Strategy
 
-No dedicated test suite for the Neovim configuration itself. Plugin
-functionality is tested through:
-
-- `:checkhealth` - Verify Neovim and plugin health
-- `:Lazy profile` - Check performance metrics
-- Manual testing of keybindings and features
+There is no test suite for the Neovim configuration itself, and adding one is
+not expected. Verify changes by loading them: `:checkhealth`, `:Lazy profile`,
+and manual exercise of the affected keybindings. See NEOVIM_CONFIG_GUIDE.md,
+"Troubleshooting", for the health check commands.
 
 ## Important Implementation Notes
 
@@ -138,20 +127,20 @@ functionality is tested through:
 2. **Plugin Loading**: Plugins are lazy-loaded by default. Dependencies and
    loading conditions are handled by lazy.nvim.
 
-3. **Prettier Config**: The Prettier formatter is configured to use
-   `~/.config/.prettierrc`. This path is hardcoded in
-   `lua/plugins/extend-conform.lua:6`.
+3. **Prettier is conditional**: `vim.g.lazyvim_prettier_needs_config = true`
+   (`lua/config/options.lua:6`) means Prettier runs only when a Prettier config
+   file is found for the buffer. `lua/plugins/extend-conform.lua` lists
+   `{ "prettier", "biome", stop_after_first = true }` per filetype, so Biome is
+   the fallback when no config is found. This replaced a hand-rolled detection
+   layer (see CEP-005). Do not reintroduce a hardcoded config path.
 
-4. **Disabled Plugins**: Neo-tree is explicitly disabled in favor of mini-files
-   and snacks explorer (see `lua/plugins/disabled.lua`).
+4. **Neo-tree stays disabled**: `lua/plugins/disabled.lua` disables neo-tree
+   because mini-files and the snacks explorer own file navigation. Do not
+   re-enable it.
 
-5. **Session Management**: Enhanced dashboard with session management is
-   configured in `lua/plugins/extend-snacks.lua`.
-
-6. **Performance Optimizations**:
-   - Cache enabled for lazy.nvim
-   - Several built-in plugins disabled (gzip, tar, zip)
-   - Optimized timeouts: updatetime=200ms, timeoutlen=500ms
+5. **Feature behavior is documented in the guide**: session management,
+   performance tuning, and per-plugin behavior live in NEOVIM_CONFIG_GUIDE.md.
+   Read it there rather than adding a second copy here.
 
 ## Config Enhancement Proposals (CEPs)
 
@@ -163,14 +152,9 @@ documents for planning and tracking configuration changes. This system helps:
 - Plan complex changes systematically
 - Learn from both successful and failed attempts
 
-**Current CEPs:**
-
-- CEP-001: Performance Optimizations (Draft)
-- CEP-002: Plugin Consolidation (Draft)
-- CEP-003: LSP Performance Improvements (Draft)
-
-See `CEPs/README.md` for the full process and `CEPs/template.md` to create new
-proposals.
+See [CEPs/README.md](CEPs/README.md) for the index of existing proposals, the
+status vocabulary, and the full process. Copy `CEPs/template.md` to create a new
+one.
 
 ## Working with This Configuration
 
@@ -181,4 +165,5 @@ When modifying this configuration:
 3. Test changes with `:Lazy reload` or restart Neovim
 4. Check `:messages` and `:Lazy` for errors
 5. Update `lazy-lock.json` when stabilizing plugin versions
-6. Consider creating a CEP for complex or experimental changes
+6. Document new plugins in NEOVIM_CONFIG_GUIDE.md, not in this file
+7. Consider creating a CEP for complex or experimental changes

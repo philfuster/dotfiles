@@ -24,6 +24,15 @@ return {
         style = "modern",
       },
 
+      window = {
+        dimensions = function()
+          return {
+            width = math.max(40, math.floor(vim.o.columns * 0.4)),
+            height = math.max(10, math.floor(vim.o.columns * 0.6)),
+          }
+        end,
+      },
+
       due_notifications = {
         enabled = true,
         on_startup = true, -- only fires because of the VeryLazy load above
@@ -43,6 +52,8 @@ return {
         open_project_todo = false,
         show_due_notification = false,
         create_nested_task = "<leader>kn",
+        open_todo_scratchpad = "<leader>kp",
+        remove_duplicates = "<leader>kD",
       },
     },
     keys = {

@@ -17,7 +17,7 @@ return {
       save_path = vim.fn.expand("~/.config/dooing_todos.json"),
       pretty_print_json = true, -- readable line-level diffs in the vault repo
       timestamp = {
-        enabled = true, -- Show relative timestamps (e.g., @5m ago, @2h ago)
+        enabled = true,         -- Show relative timestamps (e.g., @5m ago, @2h ago)
       },
 
       ui = {
@@ -27,7 +27,7 @@ return {
       window = {
         dimensions = function()
           return {
-            width = math.max(40, math.floor(vim.o.columns * 0.4)),
+            width = math.max(40, math.floor(vim.o.columns * 0.6)),
             height = math.max(10, math.floor(vim.o.columns * 0.6)),
           }
         end,
@@ -42,7 +42,7 @@ return {
         enabled = true,
         default_filename = "dooing.json",
         auto_gitignore = false, -- never append to a repo's tracked .gitignore
-        on_missing = "prompt", -- never create dooing.json without confirming
+        on_missing = "prompt",  -- never create dooing.json without confirming
         auto_open_project_todos = false,
       },
       keymaps = {
@@ -57,9 +57,9 @@ return {
       },
     },
     keys = {
-      { "<leader>kk", "<cmd>Dooing<cr>", desc = "Global todo list" },
+      { "<leader>kk", "<cmd>Dooing<cr>",      desc = "Global todo list" },
       { "<leader>kp", "<cmd>DooingLocal<cr>", desc = "Project todo list" },
-      { "<leader>kd", "<cmd>DooingDue<cr>", desc = "Due and overdue items" },
+      { "<leader>kd", "<cmd>DooingDue<cr>",   desc = "Due and overdue items" },
     },
   },
   {

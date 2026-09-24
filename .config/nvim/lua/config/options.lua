@@ -2,8 +2,8 @@
 -- Default options that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/options.lua
 -- Add any additional options here
 
--- Require prettier config file for formatting (falls back to biome if not found)
-vim.g.lazyvim_prettier_needs_config = true
+-- Format with Prettier even when a project has no Prettier config file
+vim.g.lazyvim_prettier_needs_config = false
 
 vim.opt.updatetime = 200  -- Faster completion and CursorHold
 vim.opt.timeoutlen = 500  -- Faster which-key popup
